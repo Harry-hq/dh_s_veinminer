@@ -40,7 +40,7 @@ displayName="${mod_name}" #mandatory
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Harry-hq's Vein Miner - 连锁挖矿模组
+Harry-hq's Vein Miner - 海瑞的连锁挖矿
 
 为工具添加连锁挖矿附魔，潜行时挖掘方块可自动连锁破坏相连的同类型方块。
 支持配置文件自定义连锁上限、搜索半径等参数。
