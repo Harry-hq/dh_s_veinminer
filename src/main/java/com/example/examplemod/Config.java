@@ -36,10 +36,10 @@ public class Config {
 	// 最大连锁数量
 	public static final ModConfigSpec.IntValue MAX_VEIN_SIZE=VEIN_MINER_MAX_BLOCKS;
 
-	// 是否根据附魔等级缩放连锁数量
-	public static final ModConfigSpec.BooleanValue SCALE_WITH_LEVEL=BUILDER
-		.comment("是否根据附魔等级缩放连锁挖矿数量 (默认: false) / Whether vein mining capacity scales with enchantment level (default: false)")
-		.define("veinMinerScaleWithLevel",false);
+	// [已停用] 根据附魔等级缩放连锁数量（保留代码以防出错）
+	// public static final ModConfigSpec.BooleanValue SCALE_WITH_LEVEL=BUILDER
+	// 	.comment("是否根据附魔等级缩放连锁挖矿数量 (默认: false) / Whether vein mining capacity scales with enchantment level (default: false)")
+	// 	.define("veinMinerScaleWithLevel",false);
 
 	// 连锁挖矿是否需要潜行
 	public static final ModConfigSpec.BooleanValue REQUIRE_SNEAKING=VEIN_MINER_REQUIRE_SNEAKING;
@@ -66,7 +66,7 @@ public class Config {
 	public static boolean requireSneaking;
 	public static boolean enabled;
 	public static boolean extraDurability;
-	public static boolean scaleWithLevel;
+	public static boolean scaleWithLevel; // [已停用] 保留字段避免编译错误
 	public static String mode;
 	public static List<String> whitelist;
 	public static List<String> blacklist;
@@ -79,7 +79,7 @@ public class Config {
 		requireSneaking=VEIN_MINER_REQUIRE_SNEAKING.getAsBoolean();
 		enabled=VEIN_MINER_ENABLED.getAsBoolean();
 		extraDurability=VEIN_MINER_EXTRA_DURABILITY.getAsBoolean();
-		scaleWithLevel=SCALE_WITH_LEVEL.getAsBoolean();
+		scaleWithLevel=false; // [已停用] 原: SCALE_WITH_LEVEL.getAsBoolean()
 		mode=VEIN_MINER_MODE.get();
 		whitelist=parseList(VEIN_MINER_WHITELIST.get());
 		blacklist=parseList(VEIN_MINER_BLACKLIST.get());
