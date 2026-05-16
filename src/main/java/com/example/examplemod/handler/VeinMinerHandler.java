@@ -20,8 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import java.util.*;
 
 @EventBusSubscriber(modid=HarryhqsVeinMiner.MODID)
@@ -130,9 +129,10 @@ public class VeinMinerHandler {
 		String mode=Config.mode;
 		if("DISABLED".equals(mode))return true; // 模式禁用时不做限制
 		Block block=state.getBlock();
-		// 始终允许基岩检测中排除，但基岩本应被destroy speed<0过滤
 		// 获取方块的注册ID
-		ResourceLocation blockId=BuiltInRegistries.BLOCK.getKey(block);
+		Identifier blockId=level.registryAccess()
+			.lookupOrThrow(Registries.BLOCK)
+			.getKey(block);
 		if(blockId==null)return true;
 		String blockStr=blockId.toString();
 		if("WHITELIST".equals(mode)){
