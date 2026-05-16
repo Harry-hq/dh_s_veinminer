@@ -1,5 +1,6 @@
 package com.example.examplemod;
 
+import java.util.List;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -42,6 +43,21 @@ public class Config {
 	// 连锁挖矿是否需要潜行
 	public static final ModConfigSpec.BooleanValue REQUIRE_SNEAKING=VEIN_MINER_REQUIRE_SNEAKING;
 
+	// 模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用)
+	public static final ModConfigSpec.ConfigValue<String> VEIN_MINER_MODE=BUILDER
+		.comment("连锁挖矿模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用) (默认: DISABLED)")
+		.define("veinMinerMode","DISABLED");
+
+	// 白名单方块列表
+	public static final ModConfigSpec.ConfigValue<List<? extends String>> VEIN_MINER_WHITELIST=BUILDER
+		.comment("白名单方块列表 (格式: modid:block_id, 例如: minecraft:stone)，仅在模式为WHITELIST时生效")
+		.defineListAllowEmpty("veinMinerWhitelist",List.of(),o->o instanceof String);
+
+	// 黑名单方块列表
+	public static final ModConfigSpec.ConfigValue<List<? extends String>> VEIN_MINER_BLACKLIST=BUILDER
+		.comment("黑名单方块列表 (格式: modid:block_id, 例如: minecraft:bedrock)，仅在模式为BLACKLIST时生效")
+		.defineListAllowEmpty("veinMinerBlacklist",List.of(),o->o instanceof String);
+
 	static final ModConfigSpec SPEC=BUILDER.build();
 
 	public static int maxBlocks;
@@ -50,6 +66,9 @@ public class Config {
 	public static boolean enabled;
 	public static boolean extraDurability;
 	public static boolean scaleWithLevel;
+	public static String mode;
+	public static List<String> whitelist;
+	public static List<String> blacklist;
 
 	static void onConfigReload(ModConfigEvent event){refresh();}
 
@@ -60,5 +79,8 @@ public class Config {
 		enabled=VEIN_MINER_ENABLED.getAsBoolean();
 		extraDurability=VEIN_MINER_EXTRA_DURABILITY.getAsBoolean();
 		scaleWithLevel=SCALE_WITH_LEVEL.getAsBoolean();
+		mode=VEIN_MINER_MODE.getAsString();
+		whitelist=List.copyOf(VEIN_MINER_WHITELIST.get());
+		blacklist=List.copyOf(VEIN_MINER_BLACKLIST.get());
 	}
 }

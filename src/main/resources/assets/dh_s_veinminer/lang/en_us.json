@@ -10,5 +10,8 @@
   "dh_s_veinminer.configuration.veinMinerEnabled": "Vein Miner Enabled",
   "dh_s_veinminer.configuration.veinMinerExtraDurability": "Extra Durability Cost",
   "dh_s_veinminer.configuration.veinMinerScaleWithLevel": "Scale with Level",
+  "dh_s_veinminer.configuration.veinMinerMode": "Vein Miner Mode",
+  "dh_s_veinminer.configuration.veinMinerWhitelist": "Whitelist Blocks",
+  "dh_s_veinminer.configuration.veinMinerBlacklist": "Blacklist Blocks",
   "dh_s_veinminer.message.vein_mine_complete": "Vein mining complete! Mined %d blocks"
 }

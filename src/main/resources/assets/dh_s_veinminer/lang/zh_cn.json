@@ -10,5 +10,8 @@
   "dh_s_veinminer.configuration.veinMinerEnabled": "启用连锁挖掘",
   "dh_s_veinminer.configuration.veinMinerExtraDurability": "额外耐久度消耗",
   "dh_s_veinminer.configuration.veinMinerScaleWithLevel": "根据等级缩放",
+  "dh_s_veinminer.configuration.veinMinerMode": "黑/白名单模式",
+  "dh_s_veinminer.configuration.veinMinerWhitelist": "白名单列表",
+  "dh_s_veinminer.configuration.veinMinerBlacklist": "黑名单列表",
   "dh_s_veinminer.message.vein_mine_complete": "连锁挖矿完成！共挖掘了 %d 个方块"
 }
