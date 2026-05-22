@@ -1,12 +1,15 @@
 {
   "enchantment.dh_s_veinminer.vein_miner": "Vein Miner",
 
+  "key.category.dh_s_veinminer.category": "Harry-hq's Vein Miner",
+  "key.dh_s_veinminer.trigger": "Vein Miner Trigger",
+
   "dh_s_veinminer.configuration.title": "Harry-hq's Vein Miner Configs",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml": "Harry-hq's Vein Miner Configs",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml.title": "Harry-hq's Vein Miner Configs",
   "dh_s_veinminer.configuration.veinMinerMaxBlocks": "Max Vein Mine Blocks",
   "dh_s_veinminer.configuration.veinMinerMaxDistance": "Max Vein Mine Distance",
-  "dh_s_veinminer.configuration.veinMinerRequireSneaking": "Require Sneaking",
+  "dh_s_veinminer.configuration.veinMinerTriggerAction": "Trigger Action",
   "dh_s_veinminer.configuration.veinMinerEnabled": "Vein Miner Enabled",
   "dh_s_veinminer.configuration.veinMinerExtraDurability": "Extra Durability Cost",
   "dh_s_veinminer.configuration.veinMinerScaleWithLevel": "Scale with Level",

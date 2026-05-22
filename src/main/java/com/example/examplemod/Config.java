@@ -10,18 +10,18 @@ public class Config {
 
 	// 数量上线
 	public static final ModConfigSpec.IntValue VEIN_MINER_MAX_BLOCKS=BUILDER
-		.comment("最大连锁挖矿方块数量 (默认: 64) / Maximum number of blocks to mine in a chain (default: 64)")
-		.defineInRange("veinMinerMaxBlocks",64,1,1024);
+		.comment("最大连锁挖矿方块数量 (默认: 16384) / Maximum number of blocks to mine in a chain (default: 16384)")
+		.defineInRange("veinMinerMaxBlocks",16384,1,16384);
 
 	// 最大搜索半径
 	public static final ModConfigSpec.IntValue VEIN_MINER_MAX_DISTANCE=BUILDER
-		.comment("最大连锁挖矿搜索半径 (默认: 8) / Maximum search radius for vein mining (default: 8)")
-		.defineInRange("veinMinerMaxDistance",8,1,32);
+		.comment("最大连锁挖矿搜索半径 (默认: 64) / Maximum search radius for vein mining (default: 64)")
+		.defineInRange("veinMinerMaxDistance",64,1,64);
 
-	// 是否需要潜行触发
-	public static final ModConfigSpec.BooleanValue VEIN_MINER_REQUIRE_SNEAKING=BUILDER
-		.comment("是否需要在潜行时触发连锁挖矿 (默认: true) / Whether vein mining requires sneaking (default: true)")
-		.define("veinMinerRequireSneaking",true);
+	// 触发方式: KEYBIND(自定义键位) / SNEAK(潜行触发) / ALWAYS(直接触发)
+	public static final ModConfigSpec.ConfigValue<String> VEIN_MINER_TRIGGER_ACTION=BUILDER
+		.comment("连锁挖矿触发方式: KEYBIND(自定义键位,默认V键), SNEAK(潜行时触发), ALWAYS(直接触发) (默认: KEYBIND) / Vein mining trigger: KEYBIND(custom key,default V), SNEAK(hold shift), ALWAYS(always active) (default: KEYBIND)")
+		.define("veinMinerTriggerAction","KEYBIND");
 
 	// 是否启用
 	public static final ModConfigSpec.BooleanValue VEIN_MINER_ENABLED=BUILDER
@@ -36,13 +36,13 @@ public class Config {
 	// 最大连锁数量
 	public static final ModConfigSpec.IntValue MAX_VEIN_SIZE=VEIN_MINER_MAX_BLOCKS;
 
-	// [已停用] 根据附魔等级缩放连锁数量（保留代码以防出错）
+	// [已弃用] 根据附魔等级缩放连锁数量
 	// public static final ModConfigSpec.BooleanValue SCALE_WITH_LEVEL=BUILDER
 	// 	.comment("是否根据附魔等级缩放连锁挖矿数量 (默认: false) / Whether vein mining capacity scales with enchantment level (default: false)")
 	// 	.define("veinMinerScaleWithLevel",false);
 
 	// 连锁挖矿是否需要潜行
-	public static final ModConfigSpec.BooleanValue REQUIRE_SNEAKING=VEIN_MINER_REQUIRE_SNEAKING;
+	public static final ModConfigSpec.ConfigValue<String> REQUIRE_SNEAKING=VEIN_MINER_TRIGGER_ACTION;
 
 	// 模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用)
 	public static final ModConfigSpec.ConfigValue<String> VEIN_MINER_MODE=BUILDER
@@ -63,7 +63,7 @@ public class Config {
 
 	public static int maxBlocks;
 	public static int maxDistance;
-	public static boolean requireSneaking;
+	public static String triggerAction;
 	public static boolean enabled;
 	public static boolean extraDurability;
 	public static boolean scaleWithLevel; // [已停用] 保留字段避免编译错误
@@ -76,7 +76,7 @@ public class Config {
 	static void refresh(){
 		maxBlocks=VEIN_MINER_MAX_BLOCKS.getAsInt();
 		maxDistance=VEIN_MINER_MAX_DISTANCE.getAsInt();
-		requireSneaking=VEIN_MINER_REQUIRE_SNEAKING.getAsBoolean();
+		triggerAction=VEIN_MINER_TRIGGER_ACTION.get();
 		enabled=VEIN_MINER_ENABLED.getAsBoolean();
 		extraDurability=VEIN_MINER_EXTRA_DURABILITY.getAsBoolean();
 		scaleWithLevel=false; // [已停用] 原: SCALE_WITH_LEVEL.getAsBoolean()

@@ -1,12 +1,15 @@
 {
   "enchantment.dh_s_veinminer.vein_miner": "连锁挖矿",
 
+  "key.category.dh_s_veinminer.category": "海瑞的连锁挖矿",
+  "key.dh_s_veinminer.trigger": "连锁挖矿触发",
+
   "dh_s_veinminer.configuration.title": "Harry-hq的连锁挖矿设置",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml": "Harry-hq的连锁挖矿设置",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml.title": "Harry-hq的连锁挖矿设置",
   "dh_s_veinminer.configuration.veinMinerMaxBlocks": "最大连锁挖掘方块数",
   "dh_s_veinminer.configuration.veinMinerMaxDistance": "最大连锁挖掘距离",
-  "dh_s_veinminer.configuration.veinMinerRequireSneaking": "需要潜行触发",
+  "dh_s_veinminer.configuration.veinMinerTriggerAction": "触发方式",
   "dh_s_veinminer.configuration.veinMinerEnabled": "启用连锁挖掘",
   "dh_s_veinminer.configuration.veinMinerExtraDurability": "额外耐久度消耗",
   "dh_s_veinminer.configuration.veinMinerScaleWithLevel": "根据等级缩放",
