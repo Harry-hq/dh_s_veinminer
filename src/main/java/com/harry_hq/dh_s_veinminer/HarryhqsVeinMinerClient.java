@@ -1,6 +1,6 @@
-package com.example.examplemod;
+package com.harry_hq.dh_s_veinminer;
 
-import com.example.examplemod.network.VeinMinerPayload;
+import com.harry_hq.dh_s_veinminer.network.VeinMinerPayload;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;

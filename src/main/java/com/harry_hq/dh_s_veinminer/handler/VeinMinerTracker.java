@@ -1,4 +1,4 @@
-package com.example.examplemod.handler;
+package com.harry_hq.dh_s_veinminer.handler;
 
 import java.util.Set;
 import java.util.UUID;

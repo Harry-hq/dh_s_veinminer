@@ -1,7 +1,7 @@
-package com.example.examplemod.handler;
+package com.harry_hq.dh_s_veinminer.handler;
 
-import com.example.examplemod.Config;
-import com.example.examplemod.HarryhqsVeinMiner;
+import com.harry_hq.dh_s_veinminer.Config;
+import com.harry_hq.dh_s_veinminer.HarryhqsVeinMiner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -162,7 +162,6 @@ public class VeinMinerHandler{
 			Block.popResource(level,pos,stack);
 	}
 
-	// 玩家断线时清理按键追踪状态
 	@SubscribeEvent
 	public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event){
 		if(event.getEntity() instanceof ServerPlayer sp)

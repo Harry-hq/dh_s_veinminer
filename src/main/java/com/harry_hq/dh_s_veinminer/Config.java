@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.harry_hq.dh_s_veinminer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,14 +36,6 @@ public class Config {
 	// 最大连锁数量
 	public static final ModConfigSpec.IntValue MAX_VEIN_SIZE=VEIN_MINER_MAX_BLOCKS;
 
-	// [已弃用] 根据附魔等级缩放连锁数量
-	// public static final ModConfigSpec.BooleanValue SCALE_WITH_LEVEL=BUILDER
-	// 	.comment("是否根据附魔等级缩放连锁挖矿数量 (默认: false) / Whether vein mining capacity scales with enchantment level (default: false)")
-	// 	.define("veinMinerScaleWithLevel",false);
-
-	// 连锁挖矿是否需要潜行
-	public static final ModConfigSpec.ConfigValue<String> REQUIRE_SNEAKING=VEIN_MINER_TRIGGER_ACTION;
-
 	// 模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用)
 	public static final ModConfigSpec.ConfigValue<String> VEIN_MINER_MODE=BUILDER
 		.comment("连锁挖矿模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用) (默认: DISABLED) / Vein mining mode: BLACKLIST, WHITELIST, DISABLED (default: DISABLED)")
@@ -66,7 +58,7 @@ public class Config {
 	public static String triggerAction;
 	public static boolean enabled;
 	public static boolean extraDurability;
-	public static boolean scaleWithLevel; // [已停用] 保留字段避免编译错误
+	public static boolean scaleWithLevel;
 	public static String mode;
 	public static List<String> whitelist;
 	public static List<String> blacklist;
@@ -79,13 +71,12 @@ public class Config {
 		triggerAction=VEIN_MINER_TRIGGER_ACTION.get();
 		enabled=VEIN_MINER_ENABLED.getAsBoolean();
 		extraDurability=VEIN_MINER_EXTRA_DURABILITY.getAsBoolean();
-		scaleWithLevel=false; // [已停用] 原: SCALE_WITH_LEVEL.getAsBoolean()
+		scaleWithLevel=false;
 		mode=VEIN_MINER_MODE.get();
 		whitelist=parseList(VEIN_MINER_WHITELIST.get());
 		blacklist=parseList(VEIN_MINER_BLACKLIST.get());
 	}
 
-	// 将逗号分隔的字符串解析为列表，同时去除空白
 	private static List<String> parseList(String input){
 		if(input==null||input.isBlank())return List.of();
 		return Arrays.stream(input.split(","))

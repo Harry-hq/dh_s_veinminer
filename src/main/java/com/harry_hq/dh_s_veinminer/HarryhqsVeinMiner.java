@@ -1,8 +1,8 @@
-package com.example.examplemod;
+package com.harry_hq.dh_s_veinminer;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
-import com.example.examplemod.network.VeinMinerPayload;
+import com.harry_hq.dh_s_veinminer.network.VeinMinerPayload;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;

@@ -1,7 +1,7 @@
-package com.example.examplemod.network;
+package com.harry_hq.dh_s_veinminer.network;
 
-import com.example.examplemod.HarryhqsVeinMiner;
-import com.example.examplemod.handler.VeinMinerTracker;
+import com.harry_hq.dh_s_veinminer.HarryhqsVeinMiner;
+import com.harry_hq.dh_s_veinminer.handler.VeinMinerTracker;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
