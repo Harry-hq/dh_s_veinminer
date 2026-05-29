@@ -10,13 +10,13 @@ public class Config {
 
 	// 数量上线
 	public static final ModConfigSpec.IntValue VEIN_MINER_MAX_BLOCKS=BUILDER
-		.comment("最大连锁挖矿方块数量 (默认: 16384) / Maximum number of blocks to mine in a chain (default: 16384)")
-		.defineInRange("veinMinerMaxBlocks",16384,1,16384);
+		.comment("最大连锁挖矿方块数量 (默认: 64) / Maximum number of blocks to mine in a chain (default: 64)")
+		.defineInRange("veinMinerMaxBlocks",64,1,16384);
 
 	// 最大搜索半径
 	public static final ModConfigSpec.IntValue VEIN_MINER_MAX_DISTANCE=BUILDER
-		.comment("最大连锁挖矿搜索半径 (默认: 64) / Maximum search radius for vein mining (default: 64)")
-		.defineInRange("veinMinerMaxDistance",64,1,64);
+		.comment("最大连锁挖矿搜索半径 (默认: 32) / Maximum search radius for vein mining (default: 32)")
+		.defineInRange("veinMinerMaxDistance",32,1,64);
 
 	// 触发方式: KEYBIND(自定义键位) / SNEAK(潜行触发) / ALWAYS(直接触发)
 	public static final ModConfigSpec.ConfigValue<String> VEIN_MINER_TRIGGER_ACTION=BUILDER
