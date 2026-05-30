@@ -1,9 +1,7 @@
 {
   "enchantment.dh_s_veinminer.vein_miner": "Vein Miner",
-
   "key.category.dh_s_veinminer.category": "Harry-hq's Vein Miner",
   "key.dh_s_veinminer.trigger": "Vein Miner Trigger",
-
   "dh_s_veinminer.configuration.title": "Harry-hq's Vein Miner Configs",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml": "Harry-hq's Vein Miner Configs",
   "dh_s_veinminer.configuration.section.dh_s_veinminer.common.toml.title": "Harry-hq's Vein Miner Configs",
@@ -16,7 +14,12 @@
   "dh_s_veinminer.configuration.veinMinerMode": "Vein Miner Mode",
   "dh_s_veinminer.configuration.veinMinerWhitelist": "Whitelist Blocks",
   "dh_s_veinminer.configuration.veinMinerBlacklist": "Blacklist Blocks",
+<<<<<<< HEAD
   "dh_s_veinminer.message.vein_mine_complete": "Vein mining complete! Mined %d blocks",
 
   "block.dh_s_veinminer.tc_vm_stone": "TC VM Stone"
 }
+=======
+  "dh_s_veinminer.message.vein_mine_complete": "Vein mining complete! Mined %d blocks"
+}
+>>>>>>> f3fde9c (注册演示方块)
