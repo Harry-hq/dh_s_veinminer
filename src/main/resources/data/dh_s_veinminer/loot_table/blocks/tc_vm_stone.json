@@ -2,7 +2,8 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -16,8 +17,4 @@
       ]
     }
   ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f3fde9c (注册演示方块)

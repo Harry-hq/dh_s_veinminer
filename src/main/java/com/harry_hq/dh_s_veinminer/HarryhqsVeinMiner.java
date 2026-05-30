@@ -24,13 +24,7 @@ public class HarryhqsVeinMiner{
 		ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath(MODID,"vein_miner"));
 
 	public HarryhqsVeinMiner(IEventBus modEventBus,ModContainer modContainer){
-<<<<<<< HEAD
-		ModBlocks.BLOCKS.register(modEventBus);
-		ModItems.ITEMS.register(modEventBus);
-
-=======
 		ModBlocks.register(modEventBus);
->>>>>>> f3fde9c (注册演示方块)
 		modEventBus.addListener(this::commonSetup);
 		modEventBus.addListener(Config::onConfigReload);
 		modEventBus.addListener(this::registerPayloads);

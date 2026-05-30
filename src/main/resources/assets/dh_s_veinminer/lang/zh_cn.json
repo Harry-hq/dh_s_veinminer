@@ -15,11 +15,6 @@
   "dh_s_veinminer.configuration.veinMinerWhitelist": "白名单列表",
   "dh_s_veinminer.configuration.veinMinerBlacklist": "黑名单列表",
   "dh_s_veinminer.message.vein_mine_complete": "连锁挖矿完成！共挖掘了 %d 个方块",
-<<<<<<< HEAD
 
   "block.dh_s_veinminer.tc_vm_stone": "连锁示例石头"
 }
-=======
-  "block.dh_s_veinminer.tc_vm_stone": "连锁演示石头"
-}
->>>>>>> f3fde9c (注册演示方块)
