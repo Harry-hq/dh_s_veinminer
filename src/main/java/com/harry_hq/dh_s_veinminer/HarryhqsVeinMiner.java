@@ -24,6 +24,9 @@ public class HarryhqsVeinMiner{
 		ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath(MODID,"vein_miner"));
 
 	public HarryhqsVeinMiner(IEventBus modEventBus,ModContainer modContainer){
+		ModBlocks.BLOCKS.register(modEventBus);
+		ModItems.ITEMS.register(modEventBus);
+
 		modEventBus.addListener(this::commonSetup);
 		modEventBus.addListener(Config::onConfigReload);
 		modEventBus.addListener(this::registerPayloads);
