@@ -137,6 +137,7 @@ public class VeinMinerHandler{
 			minedCount++;
 			Collection<ItemStack> drops=Block.getDrops(targetState,serverLevel,targetPos,blockEntity,player,tool);
 			for(ItemStack drop:drops)giveToPlayerOrDrop(player,level,targetPos,drop);
+			targetState.spawnAfterBreak(serverLevel,targetPos,tool,true);
 			level.setBlock(targetPos,targetState.getFluidState().createLegacyBlock(),3);
 			level.levelEvent(player,2001,targetPos,Block.getId(targetState));
 			if(Config.extraDurability)tool.hurtAndBreak(1,player,EquipmentSlot.MAINHAND);
@@ -153,6 +154,7 @@ public class VeinMinerHandler{
 		boolean removed=state.onDestroyedByPlayer(level,pos,player,tool,true,level.getFluidState(pos));
 		if(!removed)return;
 		for(ItemStack drop:drops)giveToPlayerOrDrop(player,level,pos,drop);
+		state.spawnAfterBreak(level,pos,tool,true);
 		level.setBlock(pos,state.getFluidState().createLegacyBlock(),3);
 		level.levelEvent(player,2001,pos,Block.getId(state));
 	}
