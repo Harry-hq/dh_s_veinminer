@@ -14,7 +14,6 @@
   "dh_s_veinminer.configuration.veinMinerMode": "Vein Miner Mode",
   "dh_s_veinminer.configuration.veinMinerWhitelist": "Whitelist Blocks",
   "dh_s_veinminer.configuration.veinMinerBlacklist": "Blacklist Blocks",
-  "dh_s_veinminer.message.vein_mine_complete": "Vein mining complete! Mined %d blocks",
-
-  "block.dh_s_veinminer.tc_vm_stone": "TC VM Stone"
+  "dh_s_veinminer.configuration.veinMinerRegions": "Range Whitelist (JSON)",
+  "dh_s_veinminer.message.vein_mine_complete": "Vein mining complete! Mined %d blocks"
 }

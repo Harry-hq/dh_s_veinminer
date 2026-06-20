@@ -1,6 +1,7 @@
 package com.harry_hq.dh_s_veinminer.handler;
 
 import com.harry_hq.dh_s_veinminer.Config;
+import com.harry_hq.dh_s_veinminer.CuboidRegion;
 import com.harry_hq.dh_s_veinminer.HarryhqsVeinMiner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -73,6 +74,10 @@ public class VeinMinerHandler{
 	}
 
 	private static List<BlockPos> findConnectedBlocks(Level level,BlockPos origin,BlockState originState,int maxBlocks,int maxDistance){
+		// 如果配置了范围白名单，原点必须在至少一个区域内
+		if(!Config.regions.isEmpty()&&!isInAnyRegion(origin))
+			return List.of();
+
 		List<BlockPos> result=new ArrayList<>();
 		Set<BlockPos> visited=new HashSet<>();
 		Queue<BlockPos> queue=new LinkedList<>();
@@ -92,12 +97,22 @@ public class VeinMinerHandler{
 			for(BlockPos dir:DIRECTIONS){
 				BlockPos neighbor=current.offset(dir);
 				if(!visited.contains(neighbor)&&level.isLoaded(neighbor)){
+					// 如果配置了范围白名单，邻居方块必须在区域内，否则停止此方向
+					if(!Config.regions.isEmpty()&&!isInAnyRegion(neighbor))
+						continue;
 					visited.add(neighbor);
 					queue.add(neighbor);
 				}
 			}
 		}
 		return result;
+	}
+
+	private static boolean isInAnyRegion(BlockPos pos){
+		for(CuboidRegion region:Config.regions){
+			if(region.contains(pos))return true;
+		}
+		return false;
 	}
 
 	private static boolean isSameBlockType(BlockState state1,BlockState state2){

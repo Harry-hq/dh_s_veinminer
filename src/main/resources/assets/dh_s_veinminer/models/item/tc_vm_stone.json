@@ -1,6 +1,0 @@
-{
-  "parent": "dh_s_veinminer:block/tc_vm_stone",
-  "textures": {
-    "all": "minecraft:block/stone"
-  }
-}
