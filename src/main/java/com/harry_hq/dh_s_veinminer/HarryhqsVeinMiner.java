@@ -15,8 +15,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 @Mod(HarryhqsVeinMiner.MODID)
@@ -31,7 +31,7 @@ public class HarryhqsVeinMiner{
 		modEventBus.addListener(this::commonSetup);
 		modEventBus.addListener(Config::onConfigReload);
 		modEventBus.addListener(this::registerPayloads);
-		modEventBus.addListener(this::onPlayerLogin);
+		NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
 		modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
 	}
 
