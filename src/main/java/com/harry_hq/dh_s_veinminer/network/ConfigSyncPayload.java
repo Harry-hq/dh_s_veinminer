@@ -2,6 +2,7 @@ package com.harry_hq.dh_s_veinminer.network;
 
 import com.harry_hq.dh_s_veinminer.HarryhqsVeinMiner;
 import com.harry_hq.dh_s_veinminer.Config;
+import com.harry_hq.dh_s_veinminer.HarryhqsVeinMinerClientConfig;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
