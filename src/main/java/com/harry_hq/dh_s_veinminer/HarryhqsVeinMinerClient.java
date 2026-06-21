@@ -14,6 +14,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.lwjgl.glfw.GLFW;
 
 @Mod(value=HarryhqsVeinMiner.MODID,dist=Dist.CLIENT)
@@ -43,10 +44,26 @@ public class HarryhqsVeinMinerClient{
 			lastPressed=false;
 			return;
 		}
-		boolean pressed=VEIN_MINER_KEY.isDown();
+
+		// 使用服务端同步过来的 triggerAction 来决定发送逻辑
+		String action=HarryhqsVeinMinerClientConfig.getEffectiveTriggerAction();
+
+		boolean pressed;
+		switch(action){
+			case "ALWAYS" -> pressed=true;
+			case "SNEAK" -> pressed=mc.player.isShiftKeyDown();
+			default -> pressed=VEIN_MINER_KEY.isDown(); // KEYBIND
+		}
+
 		if(pressed!=lastPressed){
 			lastPressed=pressed;
 			ClientPacketDistributor.sendToServer(new VeinMinerPayload(pressed));
 		}
+	}
+
+	@SubscribeEvent
+	static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event){
+		// 断开连接时清理服务端配置缓存，回退到本地配置
+		HarryhqsVeinMinerClientConfig.reset();
 	}
 }

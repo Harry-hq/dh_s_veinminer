@@ -2,10 +2,12 @@ package com.harry_hq.dh_s_veinminer;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
+import com.harry_hq.dh_s_veinminer.network.ConfigSyncPayload;
 import com.harry_hq.dh_s_veinminer.network.VeinMinerPayload;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -13,6 +15,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 @Mod(HarryhqsVeinMiner.MODID)
@@ -27,6 +31,7 @@ public class HarryhqsVeinMiner{
 		modEventBus.addListener(this::commonSetup);
 		modEventBus.addListener(Config::onConfigReload);
 		modEventBus.addListener(this::registerPayloads);
+		modEventBus.addListener(this::onPlayerLogin);
 		modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
 	}
 
@@ -38,5 +43,14 @@ public class HarryhqsVeinMiner{
 	private void registerPayloads(RegisterPayloadHandlersEvent event){
 		var registrar=event.registrar(MODID);
 		registrar.playToServer(VeinMinerPayload.TYPE,VeinMinerPayload.CODEC,VeinMinerPayload::handle);
+		registrar.playToClient(ConfigSyncPayload.TYPE,ConfigSyncPayload.CODEC,ConfigSyncPayload::handle);
+	}
+
+	private void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event){
+		if(event.getEntity() instanceof ServerPlayer serverPlayer){
+			// 玩家登录时，将服务端关键配置同步到客户端
+			serverPlayer.connection.send(
+				new ConfigSyncPayload(Config.triggerAction,Config.enabled));
+		}
 	}
 }
