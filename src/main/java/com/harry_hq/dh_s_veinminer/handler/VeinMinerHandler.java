@@ -150,7 +150,13 @@ public class VeinMinerHandler{
 			boolean removed=targetState.onDestroyedByPlayer(level,targetPos,player,tool,true,level.getFluidState(targetPos));
 			if(!removed)continue;
 			minedCount++;
-			Collection<ItemStack> drops=Block.getDrops(targetState,serverLevel,targetPos,blockEntity,player,tool);
+			// 原版战利品系统决定掉落物，但跳过工具等级检查
+			// 这里手动补上: 需要特定工具等级的方块，工具不匹配则不掉落
+			Collection<ItemStack> drops;
+			if(!targetState.requiresCorrectToolForDrops()||tool.isCorrectToolForDrops(targetState))
+				drops=Block.getDrops(targetState,serverLevel,targetPos,blockEntity,player,tool);
+			else
+				drops=List.of();
 			for(ItemStack drop:drops)giveToPlayerOrDrop(player,level,targetPos,drop);
 			targetState.spawnAfterBreak(serverLevel,targetPos,tool,true);
 			level.setBlock(targetPos,targetState.getFluidState().createLegacyBlock(),3);
