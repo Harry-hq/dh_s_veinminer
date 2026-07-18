@@ -11,7 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -25,11 +25,6 @@ import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import java.util.*;
 
 @EventBusSubscriber(modid=HarryhqsVeinMiner.MODID)
@@ -136,32 +131,15 @@ public class VeinMinerHandler{
 	}
 
 	/**
-	 * 委托原版系统处理方块的完整掉落（物品 + 经验）。
-	 * 利用 Block.dropResources 的完整战利品表处理（MC 26.1.2+），
-	 * 然后收集掉落的物品实体给到玩家。
+	 * 从方块战利品表中获取经验值并在玩家位置生成经验球实体。
+	 * 经验球触发经验修补附魔和其他模组的经验吸收机制。
 	 */
-	private static void dropBlockWithVanilla(ServerLevel level, BlockPos pos, BlockState state,
-											 BlockEntity blockEntity, Player player, ItemStack tool) {
-		// 记录掉落前已有的物品实体 UUID
-		Set<java.util.UUID> existingItems = new HashSet<>();
-		for (ItemEntity ie : level.getEntitiesOfClass(ItemEntity.class,
-				new net.minecraft.world.phys.AABB(pos).inflate(3.0))) {
-			existingItems.add(ie.getUUID());
-		}
-
-		// 由原版系统处理掉落（物品 + 经验，包括战利品表中的 set_experience）
-		Block.dropResources(state, level, pos, blockEntity, player, tool);
-
-		// 收集新产生的物品实体给玩家
-		for (ItemEntity ie : level.getEntitiesOfClass(ItemEntity.class,
-				new net.minecraft.world.phys.AABB(pos).inflate(3.0))) {
-			if (!existingItems.contains(ie.getUUID())) {
-				ItemStack stack = ie.getItem();
-				if (!player.getInventory().add(stack)) {
-					Block.popResource(level, pos, stack);
-				}
-				ie.discard();
-			}
+	private static void dropExperienceAtPlayer(ServerLevel level, BlockState state,
+											   BlockEntity blockEntity, Player player, ItemStack tool) {
+		int exp = state.getBlock().getExpDrop(state, level, BlockPos.containing(player.position()),
+			blockEntity, player, tool);
+		if (exp > 0) {
+			ExperienceOrb.award(level, player.position(), exp);
 		}
 	}
 
@@ -184,11 +162,17 @@ public class VeinMinerHandler{
 			boolean removed=targetState.onDestroyedByPlayer(level,targetPos,player,tool,true,level.getFluidState(targetPos));
 			if(!removed)continue;
 			minedCount++;
+			// 手动处理物品掉落（直接给玩家）
+			Collection<ItemStack> drops;
+			if(!targetState.requiresCorrectToolForDrops()||tool.isCorrectToolForDrops(targetState))
+				drops=Block.getDrops(targetState,serverLevel,targetPos,blockEntity,player,tool);
+			else
+				drops=List.of();
+			for(ItemStack drop:drops)giveToPlayerOrDrop(player,level,targetPos,drop);
 			// legacy 经验（兼容旧版方块）
 			targetState.spawnAfterBreak(serverLevel,targetPos,tool,true);
-			// 由原版系统处理完整的战利品表掉落（物品 + MC 26.1.2+ 经验），
-			// 然后收集掉落物给玩家，兼容经验修补和其他模组的经验吸收
-			dropBlockWithVanilla(serverLevel, targetPos, targetState, blockEntity, player, tool);
+			// 在玩家位置生成经验球（触发经验修补等附魔效果）
+			dropExperienceAtPlayer(serverLevel, targetState, blockEntity, player, tool);
 			level.setBlock(targetPos,targetState.getFluidState().createLegacyBlock(),3);
 			level.levelEvent(player,2001,targetPos,Block.getId(targetState));
 			if(Config.extraDurability)tool.hurtAndBreak(1,player,EquipmentSlot.MAINHAND);
@@ -203,8 +187,10 @@ public class VeinMinerHandler{
 		BlockEntity blockEntity=level.getBlockEntity(pos);
 		boolean removed=state.onDestroyedByPlayer(level,pos,player,tool,true,level.getFluidState(pos));
 		if(!removed)return;
+		for(ItemStack drop:Block.getDrops(state,level,pos,blockEntity,player,tool))
+			giveToPlayerOrDrop(player,level,pos,drop);
 		state.spawnAfterBreak(level,pos,tool,true);
-		dropBlockWithVanilla(level, pos, state, blockEntity, player, tool);
+		dropExperienceAtPlayer(level, state, blockEntity, player, tool);
 		level.setBlock(pos,state.getFluidState().createLegacyBlock(),3);
 		level.levelEvent(player,2001,pos,Block.getId(state));
 	}
